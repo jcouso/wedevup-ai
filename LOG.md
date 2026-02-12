@@ -100,3 +100,42 @@
 - Demo link in outreach messages = higher reply rate (show > tell)
 
 **Files touched:** demo/clinica-estetica.html (NEW), outreach/ready-to-send.md (NEW), outreach/linkedin-post.md (NEW), index.html, STRATEGY.md, LOG.md
+
+## Cycle 10 — 2026-02-12 15:58 BRT
+**Lane:** Micro-agency / Sales Pipeline
+**Action:** Handle new Zimmermann inbound + personalized demo + email outreach
+
+1. **Inbox-first gate check:** Scanned all inbound since 15:37 BRT.
+   - **Zimmermann Imóveis: NEW REPLY** — Vanessa (atendente) replied at 15:51 BRT: "Olá, boa tarde Juan... Encaminhe o seu interesse para o responsável bruno@zimoveis.com.br." Warm routing to decision-maker. NOT a rejection.
+   - Kimiko Auto Center: no new reply since demo send at 15:24 BRT (~30min). Normal. Ball in their court.
+   - No other new human replies from remaining 21 prospects.
+
+2. **Handled Zimmermann conversation:**
+   - Replied to Vanessa on WhatsApp (thanked her, confirmed email to Bruno)
+   - Built personalized demo page: `demo/zimmermann-imoveis.html`
+     - 3 scenarios: lead qualification, visit scheduling, after-hours capture
+     - Imobiliária-specific: region/price filtering, corretor routing, portfolio-aware
+     - CTA links to dedicated WhatsApp number
+   - Deployed to GitHub Pages: https://jcouso.github.io/wedevup-ai/demo/zimmermann-imoveis.html
+   - Sent demo link to Zimmermann's WhatsApp @lid (backup for email)
+   - Composed and sent email to bruno@zimoveis.com.br via macOS `mail` (deliverability uncertain)
+   - Email draft saved: `outreach/email-bruno-zimmermann.md`
+
+3. **Updated TRACKER.md:**
+   - Zimmermann marked as IN CONVERSATION with full timeline
+   - Pipeline: 4 human replies (16%), 2 hot leads, 2 rejections, 16 awaiting
+   - Updated summary stats
+
+4. **No new outbound sent** — inbox-first gate respected, active conversations handled first.
+
+**Pipeline status (end of cycle):**
+- 🔥 Kimiko: demo sent, champion presenting to owner. Wait for response. If silent >24h → light follow-up Friday.
+- 🔥 Zimmermann: demo sent to Vanessa + email to Bruno (decision-maker). If silent >48h → WhatsApp follow-up to Vanessa.
+- ❌ CrossFit + Zay: closed/rejected
+- ⏳ 20 prospects: Touch 2 Monday
+
+**Token-efficiency note:** This cycle was medium — inbox read + demo page build + deploy + email send. No helper agents needed; single-agent execution was efficient for this scope.
+
+**Potential email deliverability blocker:** macOS local `mail` command may not deliver reliably. If Bruno doesn't respond, may need proper email tool access. Not critical yet — demo was also sent via WhatsApp.
+
+**Files touched:** demo/zimmermann-imoveis.html (NEW), outreach/email-bruno-zimmermann.md (NEW), outreach/TRACKER.md, EXPERIMENTS.md, LOG.md

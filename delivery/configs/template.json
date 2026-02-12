@@ -1,0 +1,86 @@
+{
+  "clientId": "example-clinic",
+  "businessName": "Clínica Exemplo",
+  "businessType": "clinica_estetica",
+  "whatsappNumber": "",
+  "timezone": "America/Sao_Paulo",
+
+  "businessHours": {
+    "monday":    { "open": "08:00", "close": "18:00" },
+    "tuesday":   { "open": "08:00", "close": "18:00" },
+    "wednesday": { "open": "08:00", "close": "18:00" },
+    "thursday":  { "open": "08:00", "close": "18:00" },
+    "friday":    { "open": "08:00", "close": "18:00" },
+    "saturday":  { "open": "09:00", "close": "13:00" },
+    "sunday":    null
+  },
+
+  "offHoursMessage": "Olá! 😊 Obrigado por entrar em contato com a {businessName}. Nosso horário de atendimento é de segunda a sexta, das 8h às 18h, e sábados das 9h às 13h. Responderemos assim que possível!",
+
+  "systemPrompt": "Você é a assistente virtual da {businessName}. Seja profissional, simpática e objetiva. Responda sempre em português brasileiro. Seu papel é: responder dúvidas sobre serviços e preços, agendar consultas/atendimentos, qualificar leads (coletar nome, interesse, disponibilidade), e encaminhar para atendimento humano quando necessário. Nunca invente informações que não estejam nos dados abaixo. Se não souber, diga que vai verificar com a equipe.",
+
+  "services": [
+    {
+      "name": "Limpeza de Pele",
+      "description": "Limpeza profunda com extração e hidratação",
+      "price": "R$180",
+      "duration": "60 min"
+    },
+    {
+      "name": "Botox",
+      "description": "Aplicação de toxina botulínica",
+      "price": "A partir de R$800",
+      "duration": "30 min"
+    }
+  ],
+
+  "faqs": [
+    {
+      "question": "Vocês aceitam convênio?",
+      "answer": "Trabalhamos com atendimento particular. Aceitamos cartão de crédito (até 3x sem juros), débito e PIX."
+    },
+    {
+      "question": "Onde fica a clínica?",
+      "answer": "Estamos na Rua Exemplo, 123 - Vila Mariana, São Paulo. Próximo ao metrô Ana Rosa."
+    },
+    {
+      "question": "Precisa de avaliação antes?",
+      "answer": "Sim! Para alguns procedimentos fazemos uma avaliação gratuita antes. Posso agendar a sua?"
+    }
+  ],
+
+  "appointmentBooking": {
+    "enabled": true,
+    "collectFields": ["name", "phone", "service_interest", "preferred_date", "preferred_time"],
+    "confirmationMessage": "Perfeito, {name}! Sua solicitação de agendamento foi registrada: {service_interest} em {preferred_date} às {preferred_time}. Nossa equipe vai confirmar em breve! 😊"
+  },
+
+  "escalation": {
+    "triggers": [
+      "cliente pede para falar com humano",
+      "reclamação grave",
+      "pedido fora do escopo dos serviços",
+      "mais de 3 trocas sem resolução"
+    ],
+    "message": "Entendi! Vou encaminhar você para nossa equipe agora mesmo. Um momento, por favor. 🙏",
+    "notifyNumber": ""
+  },
+
+  "leadCapture": {
+    "enabled": true,
+    "fields": ["name", "phone", "interest", "source"],
+    "webhookUrl": ""
+  },
+
+  "ai": {
+    "model": "gpt-4o-mini",
+    "maxTokens": 500,
+    "temperature": 0.7,
+    "maxHistoryMessages": 20
+  },
+
+  "compliance": {
+    "blockedTopics": ["diagnóstico médico", "prescrição de medicamentos", "emergências médicas"],
+    "disclaimer": ""
+  }
+}
