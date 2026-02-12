@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agente IA WhatsApp para Auto Centers e Oficinas — WeDevUp</title>
+<meta name="description" content="Automatize o WhatsApp da sua oficina ou auto center com IA. Orçamentos, agendamento e atendimento 24h no piloto automático.">
+<meta property="og:title" content="Agente IA WhatsApp para Auto Centers e Oficinas">
+<meta property="og:description" content="Seu WhatsApp atendendo clientes 24h. Orçamentos, agendamento e follow-up automático.">
+<meta property="og:type" content="website">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0b141a;color:#e9edef;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+.hero{background:linear-gradient(135deg,#075e54 0%,#128c7e 50%,#25d366 100%);padding:48px 20px 40px;text-align:center}
+.hero h1{font-size:clamp(1.5rem,4.5vw,2.2rem);font-weight:800;margin-bottom:10px;line-height:1.2}
+.hero .sub{font-size:1.05rem;opacity:.92;margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto}
+.hero .badge{display:inline-block;background:rgba(255,255,255,.18);padding:6px 16px;border-radius:20px;font-size:.85rem;font-weight:600}
+
+.section{max-width:620px;margin:0 auto;padding:36px 20px}
+.section h2{font-size:1.3rem;margin-bottom:18px;color:#25d366;font-weight:700}
+
+/* Pain points */
+.pain{background:#1a2733;border-radius:12px;padding:20px;margin-bottom:28px}
+.pain-item{display:flex;align-items:flex-start;margin-bottom:14px}
+.pain-item:last-child{margin-bottom:0}
+.pain-item .icon{font-size:1.2rem;margin-right:12px;flex-shrink:0}
+.pain-item .text{font-size:.95rem;color:#adb5bd}
+.pain-item .text strong{color:#e9edef}
+
+/* Chat simulation */
+.chat-container{background:#0b141a;border-radius:12px;overflow:hidden;margin-bottom:28px;border:1px solid #1a2733}
+.chat-header{background:#1a2733;padding:12px 16px;display:flex;align-items:center;gap:10px}
+.chat-header .avatar{width:36px;height:36px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700}
+.chat-header .name{font-weight:600;font-size:.95rem}
+.chat-header .status{font-size:.75rem;color:#8696a0}
+.chat-body{padding:12px 16px;display:flex;flex-direction:column;min-height:180px}
+.msg{max-width:85%;padding:8px 12px;border-radius:8px;margin-bottom:8px;font-size:.9rem;position:relative;animation:fadeIn .4s ease}
+.msg.in{background:#1a2733;border-top-left-radius:0}
+.msg.out{background:#005c4b;border-top-right-radius:0;margin-left:auto}
+.msg .time{font-size:.7rem;color:#8696a0;float:right;margin-left:8px;margin-top:4px}
+.msg .sender{font-size:.75rem;color:#25d366;font-weight:600;margin-bottom:2px}
+
+/* Scenario tabs */
+.scenario-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.scenario-tab{background:#1a2733;border:2px solid transparent;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:.85rem;color:#adb5bd;transition:all .2s}
+.scenario-tab:hover{border-color:#25d366;color:#e9edef}
+.scenario-tab.active{border-color:#25d366;color:#25d366;background:#0d2b26}
+.scenario-tab .emoji{font-size:1.1rem;margin-right:4px}
+
+/* Results */
+.results{background:#1a2733;border-radius:12px;padding:20px;margin-bottom:28px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #2a3942}
+.result-row:last-child{border-bottom:none}
+.result-label{font-size:.9rem;color:#8696a0}
+.result-value{font-size:1.1rem;font-weight:700;color:#25d366}
+
+/* Steps */
+.how-it-works{counter-reset:step}
+.step{display:flex;align-items:flex-start;margin-bottom:20px}
+.step-num{width:32px;height:32px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0;margin-right:14px;margin-top:2px}
+.step-content{flex:1}
+.step-content .title{font-weight:600;margin-bottom:2px}
+.step-content .desc{font-size:.9rem;color:#8696a0}
+
+/* Testimonial / social proof */
+.proof-box{background:linear-gradient(135deg,#0d2b26,#1a2733);border:1px solid #25d366;border-radius:12px;padding:20px;margin-bottom:28px;text-align:center}
+.proof-box .stat{font-size:2rem;font-weight:800;color:#25d366}
+.proof-box .stat-label{font-size:.9rem;color:#adb5bd;margin-top:2px}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.proof-cell{text-align:center}
+.proof-cell .num{font-size:1.4rem;font-weight:700;color:#e9edef}
+.proof-cell .lbl{font-size:.75rem;color:#8696a0}
+
+/* CTA */
+.cta-section{text-align:center;padding:48px 20px;background:linear-gradient(180deg,#0b141a 0%,#1a2733 100%)}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;font-size:1.1rem;font-weight:700;padding:16px 32px;border-radius:12px;transition:transform .2s;box-shadow:0 4px 16px rgba(37,211,102,.3)}
+.cta-btn:hover{transform:scale(1.04)}
+.cta-btn svg{width:22px;height:22px;fill:currentColor}
+.cta-note{margin-top:12px;font-size:.85rem;color:#8696a0}
+
+.footer{text-align:center;padding:20px;font-size:.8rem;color:#8696a0}
+.hidden{display:none}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:500px){.proof-grid{grid-template-columns:1fr}.scenario-tabs{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <h1>🔧 Seu WhatsApp atendendo clientes da oficina 24h por dia</h1>
+  <p class="sub">Orçamentos, agendamento e follow-up no piloto automático. Sem perder cliente por demora.</p>
+  <div class="badge">🚗 Feito para auto centers e oficinas</div>
+</section>
+
+<div class="section">
+  <h2>Reconhece alguma dessas situações?</h2>
+  <div class="pain">
+    <div class="pain-item">
+      <span class="icon">📱</span>
+      <div class="text"><strong>WhatsApp lotado</strong> de mensagens pedindo orçamento, preço de troca de óleo, revisão... e sua equipe não dá conta de responder tudo rápido.</div>
+    </div>
+    <div class="pain-item">
+      <span class="icon">🌙</span>
+      <div class="text"><strong>Cliente mandou mensagem à noite</strong> ou no fim de semana. Quando você responde na segunda, ele já foi pra outra oficina.</div>
+    </div>
+    <div class="pain-item">
+      <span class="icon">🔁</span>
+      <div class="text"><strong>Mesmas perguntas o dia inteiro:</strong> "quanto custa?", "que horas abre?", "faz diagnóstico?". Sua equipe repete as mesmas respostas 50 vezes.</div>
+    </div>
+    <div class="pain-item">
+      <span class="icon">📋</span>
+      <div class="text"><strong>Agendamento bagunçado.</strong> Cliente marca horário pelo WhatsApp, ninguém anota, aparece na hora errada ou não aparece.</div>
+    </div>
+    <div class="pain-item">
+      <span class="icon">💸</span>
+      <div class="text"><strong>Cliente fez orçamento e sumiu.</strong> Ninguém lembrou de mandar follow-up. Venda perdida.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Veja como funciona na prática</h2>
+  <p style="color:#8696a0;margin-bottom:16px;font-size:.95rem">Clique nos cenários abaixo para ver o agente IA em ação:</p>
+
+  <div class="scenario-tabs">
+    <div class="scenario-tab active" onclick="showScenario('orcamento')">
+      <span class="emoji">💰</span> Orçamento
+    </div>
+    <div class="scenario-tab" onclick="showScenario('agendamento')">
+      <span class="emoji">📅</span> Agendamento
+    </div>
+    <div class="scenario-tab" onclick="showScenario('noturno')">
+      <span class="emoji">🌙</span> Fora do horário
+    </div>
+    <div class="scenario-tab" onclick="showScenario('followup')">
+      <span class="emoji">🔄</span> Follow-up
+    </div>
+  </div>
+
+  <!-- Scenario: Orçamento -->
+  <div class="chat-container" id="scenario-orcamento">
+    <div class="chat-header">
+      <div class="avatar">🤖</div>
+      <div>
+        <div class="name">Assistente IA — Sua Oficina</div>
+        <div class="status">online</div>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="msg in">
+        <div class="sender">Cliente</div>
+        Boa tarde, quanto custa troca de óleo do Civic 2020?
+        <span class="time">14:32</span>
+      </div>
+      <div class="msg out">
+        Boa tarde! 😊 Troca de óleo do Civic 2020 fica entre R$180 e R$250, dependendo do tipo de óleo (mineral, semi ou sintético). O sintético é o mais indicado pro Civic.<br><br>Quer que eu agende um horário pra você? Temos vagas amanhã de manhã.
+        <span class="time">14:32</span>
+      </div>
+      <div class="msg in">
+        <div class="sender">Cliente</div>
+        Sintético fica quanto?
+        <span class="time">14:33</span>
+      </div>
+      <div class="msg out">
+        Com óleo sintético 5W30 + filtro: R$239. Leva uns 40 minutos. Posso reservar amanhã às 9h ou 10h pra você?
+        <span class="time">14:33</span>
+      </div>
+      <div class="msg in">
+        <div class="sender">Cliente</div>
+        Fecha 9h
+        <span class="time">14:34</span>
+      </div>
+      <div class="msg out">
+        Perfeito! ✅ Agendado: amanhã (sexta) às 9h, troca de óleo sintético Civic 2020. Vou te mandar um lembrete amanhã cedo. Qualquer coisa é só chamar!
+        <span class="time">14:34</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario: Agendamento -->
+  <div class="chat-container hidden" id="scenario-agendamento">
+    <div class="chat-header">
+      <div class="avatar">🤖</div>
+      <div>
+        <div class="name">Assistente IA — Sua Oficina</div>
+        <div class="status">online</div>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="msg in">
+        <div class="sender">Cliente</div>
+        Preciso fazer revisão completa do meu HB20 2022. Tem horário essa semana?
+        <span class="time">09:15</span>
+      </div>
+      <div class="msg out">
+        Bom dia! 😊 Temos sim. Revisão completa do HB20 2022 inclui: troca de óleo, filtros, checagem de freios, suspensão e parte elétrica. Investimento: R$490.<br><br>Horários disponíveis essa semana:<br>📅 Quarta 14h<br>📅 Quinta 9h ou 15h<br>📅 Sexta 10h<br><br>Qual prefere?
+        <span class="time">09:15</span>
+      </div>
+      <div class="msg in">
+        <div class="sender">Cliente</div>
+        Quinta 9h
+        <span class="time">09:17</span>
+      </div>
+      <div class="msg out">
+        Anotado! ✅ Revisão completa HB20 2022, quinta às 9h. Previsão de entrega: mesmo dia até 17h.<br><br>Vou te mandar um lembrete na quarta à noite. Até lá! 🚗
+        <span class="time">09:17</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario: Noturno -->
+  <div class="chat-container hidden" id="scenario-noturno">
+    <div class="chat-header">
+      <div class="avatar">🤖</div>
+      <div>
+        <div class="name">Assistente IA — Sua Oficina</div>
+        <div class="status">online</div>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="msg in">
+        <div class="sender">Cliente</div>
+        Oi, to com um barulho estranho na roda dianteira do Corolla. Vocês fazem diagnóstico?
+        <span class="time">22:47</span>
+      </div>
+      <div class="msg out">
+        Oi! Fazemos sim. 🔍 Barulho na roda dianteira pode ser rolamento, pastilha de freio ou terminal de direção. Nosso diagnóstico completo custa R$80 (e se fizer o serviço aqui, abatemos do valor).<br><br>Nosso horário: seg a sex, 8h às 18h / sábado 8h às 13h.<br><br>Quer que eu reserve um horário pra amanhã?
+        <span class="time">22:47</span>
+      </div>
+      <div class="msg in">
+        <div class="sender">Cliente</div>
+        Sim por favor, amanhã de manhã
+        <span class="time">22:50</span>
+      </div>
+      <div class="msg out">
+        Reservado! ✅ Diagnóstico do Corolla amanhã às 8h30. Endereço: [seu endereço]. Te mando lembrete de manhã. Boa noite! 🌙
+        <span class="time">22:50</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario: Follow-up -->
+  <div class="chat-container hidden" id="scenario-followup">
+    <div class="chat-header">
+      <div class="avatar">🤖</div>
+      <div>
+        <div class="name">Assistente IA — Sua Oficina</div>
+        <div class="status">online</div>
+      </div>
+    </div>
+    <div class="chat-body">
+      <div class="msg out">
+        Oi Marcos! 👋 Faz 3 dias que você pediu orçamento da troca de correia dentada do Gol. Continua com interesse? O valor é R$680 com peças e mão de obra. Posso agendar essa semana ainda.
+        <span class="time">10:00</span>
+      </div>
+      <div class="msg in">
+        <div class="sender">Marcos</div>
+        Opa verdade, tinha esquecido. Vamos fazer sim, pode ser quinta?
+        <span class="time">10:15</span>
+      </div>
+      <div class="msg out">
+        Boa! ✅ Agendado: quinta às 9h, troca de correia dentada Gol. Leva aproximadamente 3h. Mando lembrete na quarta. Valeu Marcos!
+        <span class="time">10:15</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>O que muda na sua oficina</h2>
+  <div class="results">
+    <div class="result-row">
+      <span class="result-label">Tempo de resposta</span>
+      <span class="result-value">Horas → Segundos</span>
+    </div>
+    <div class="result-row">
+      <span class="result-label">Atendimento</span>
+      <span class="result-value">24h / 7 dias</span>
+    </div>
+    <div class="result-row">
+      <span class="result-label">Clientes fora do horário</span>
+      <span class="result-value">100% atendidos</span>
+    </div>
+    <div class="result-row">
+      <span class="result-label">Follow-up de orçamentos</span>
+      <span class="result-value">Automático</span>
+    </div>
+    <div class="result-row">
+      <span class="result-label">Agendamento</span>
+      <span class="result-value">Sem confusão</span>
+    </div>
+  </div>
+
+  <div class="proof-box">
+    <div class="stat">+35%</div>
+    <div class="stat-label">de conversão estimada com resposta instantânea no WhatsApp</div>
+    <div class="proof-grid">
+      <div class="proof-cell">
+        <div class="num">0</div>
+        <div class="lbl">clientes perdidos à noite</div>
+      </div>
+      <div class="proof-cell">
+        <div class="num">80%</div>
+        <div class="lbl">menos perguntas repetitivas</div>
+      </div>
+      <div class="proof-cell">
+        <div class="num">24/7</div>
+        <div class="lbl">atendimento ativo</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Como funciona</h2>
+  <div class="how-it-works">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="title">Configuramos o agente pro seu negócio</div>
+        <div class="desc">Serviços, preços, horários, tom de voz. Tudo com a cara da sua oficina.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="title">Conecta no seu WhatsApp atual</div>
+        <div class="desc">Sem trocar de número. O agente responde no seu WhatsApp Business.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="title">Agente atende, agenda e faz follow-up</div>
+        <div class="desc">Respostas instantâneas, agendamento organizado, follow-up automático de orçamentos.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="title">Passa pro humano quando precisa</div>
+        <div class="desc">Casos complexos, reclamações ou quando o cliente pede. O agente sabe a hora de chamar você.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="cta-section">
+  <h2 style="font-size:1.4rem;font-weight:700;margin-bottom:8px;color:#e9edef">Quer ver funcionando na sua oficina?</h2>
+  <p style="color:#8696a0;margin-bottom:24px;font-size:.95rem;max-width:420px;margin-left:auto;margin-right:auto">Fazemos uma demo personalizada com os serviços e preços da sua oficina. Sem compromisso.</p>
+  <a class="cta-btn" href="https://wa.me/5511973168342?text=Oi%2C%20vi%20a%20p%C3%A1gina%20do%20agente%20IA%20pra%20oficinas.%20Quero%20saber%20mais!" target="_blank">
+    <svg viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Quero ver a demo
+  </a>
+  <p class="cta-note">Resposta em até 24h. Sem compromisso.</p>
+</section>
+
+<footer class="footer">
+  WeDevUp — Automação com IA para negócios · São Paulo
+</footer>
+
+<script>
+function showScenario(id) {
+  document.querySelectorAll('[id^="scenario-"]').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.scenario-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('scenario-' + id).classList.remove('hidden');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
