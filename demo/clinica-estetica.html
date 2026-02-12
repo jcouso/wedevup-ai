@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — Agente IA no WhatsApp | WeDevUp</title>
+<style>
+  :root {
+    --wa-bg: #efeae2;
+    --wa-green: #dcf8c6;
+    --wa-white: #fff;
+    --wa-header: #075e54;
+    --wa-time: #667781;
+    --wa-link: #027eb5;
+    --shadow: 0 1px 0.5px rgba(0,0,0,.13);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f0f0f0;
+    color: #111;
+    min-height: 100vh;
+  }
+  .page-header {
+    background: var(--wa-header);
+    color: #fff;
+    text-align: center;
+    padding: 20px 16px 16px;
+  }
+  .page-header h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .page-header p { font-size: 13px; opacity: .85; }
+  .tabs {
+    display: flex;
+    background: var(--wa-header);
+    border-bottom: 3px solid #128c7e;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 8px;
+    color: rgba(255,255,255,.7);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color .2s, border-color .2s;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .tab.active {
+    color: #fff;
+    border-bottom-color: #fff;
+  }
+  .scenario { display: none; }
+  .scenario.active { display: block; }
+  .scenario-label {
+    text-align: center;
+    padding: 12px 16px;
+    background: #fff;
+    font-size: 12px;
+    color: #667781;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .chat-container {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--wa-bg);
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8c3ba' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    min-height: 70vh;
+    padding: 8px 12px 20px;
+  }
+  .date-chip {
+    text-align: center;
+    margin: 12px 0;
+  }
+  .date-chip span {
+    background: #e1deda;
+    color: #54656f;
+    font-size: 11.5px;
+    padding: 5px 12px;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  .msg {
+    max-width: 85%;
+    padding: 6px 8px 8px;
+    margin: 3px 0;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: var(--shadow);
+    line-height: 1.4;
+    font-size: 14.2px;
+    animation: fadeIn .4s ease;
+  }
+  .msg.hidden { display: none; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .msg.incoming {
+    background: var(--wa-white);
+    border-radius: 0 8px 8px 8px;
+    margin-right: auto;
+  }
+  .msg.outgoing {
+    background: var(--wa-green);
+    border-radius: 8px 0 8px 8px;
+    margin-left: auto;
+  }
+  .msg .sender {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--wa-header);
+    margin-bottom: 2px;
+  }
+  .msg .sender.ai { color: #6a0dad; }
+  .msg .time {
+    font-size: 11px;
+    color: var(--wa-time);
+    text-align: right;
+    margin-top: 2px;
+  }
+  .msg .time .check { color: #53bdeb; font-size: 13px; }
+  .msg p { margin: 4px 0; }
+  .msg strong { font-weight: 600; }
+  .msg em { font-style: italic; color: #555; }
+  .typing-indicator {
+    display: inline-flex;
+    gap: 3px;
+    padding: 4px 0;
+  }
+  .typing-indicator span {
+    width: 7px; height: 7px;
+    background: #aaa;
+    border-radius: 50%;
+    animation: blink 1.4s infinite both;
+  }
+  .typing-indicator span:nth-child(2) { animation-delay: .2s; }
+  .typing-indicator span:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%,80%,100%{opacity:.3} 40%{opacity:1} }
+  .cta-bar {
+    max-width: 480px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 16px;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+  }
+  .cta-bar p { font-size: 14px; color: #555; margin-bottom: 12px; }
+  .cta-bar a {
+    display: inline-block;
+    background: #25d366;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: background .2s;
+  }
+  .cta-bar a:hover { background: #1fb855; }
+  .footer {
+    text-align: center;
+    padding: 20px 16px;
+    font-size: 12px;
+    color: #999;
+  }
+  .footer a { color: var(--wa-link); text-decoration: none; }
+  .play-btn {
+    display: block;
+    max-width: 480px;
+    margin: 0 auto;
+    background: #fff;
+    border: none;
+    padding: 14px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--wa-header);
+    border-bottom: 1px solid #e0e0e0;
+    width: 100%;
+  }
+  .play-btn:hover { background: #f5f5f5; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>🤖 Demo: Agente IA no WhatsApp</h1>
+  <p>Veja como funciona em 3 cenários reais</p>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showScenario('s1')">🏥 Clínica</div>
+  <div class="tab" onclick="showScenario('s2')">🏠 Imobiliária</div>
+  <div class="tab" onclick="showScenario('s3')">🍽️ Restaurante</div>
+</div>
+
+<!-- SCENARIO 1: Clínica Estética -->
+<div id="s1" class="scenario active">
+  <div class="scenario-label">Clínica de estética recebendo agendamento fora do horário — 22:47</div>
+  <button class="play-btn" onclick="playScenario('s1')">▶ Assistir conversa ao vivo</button>
+  <div class="chat-container" id="chat-s1">
+    <div class="date-chip"><span>HOJE</span></div>
+
+    <div class="msg incoming hidden" data-delay="600">
+      <div class="sender">Camila</div>
+      <p>Oi, boa noite! Quanto custa uma limpeza de pele? Vocês têm horário amanhã?</p>
+      <div class="time">22:47</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="1800">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Oi Camila! Boa noite 😊</p>
+      <p>A limpeza de pele custa <strong>R$180</strong> e leva cerca de 1h.</p>
+      <p>Amanhã temos os seguintes horários disponíveis:</p>
+      <p>• 09:00<br>• 11:30<br>• 14:00<br>• 16:30</p>
+      <p>Qual funciona melhor pra você?</p>
+      <div class="time">22:47 <span class="check">✓✓</span></div>
+    </div>
+
+    <div class="msg incoming hidden" data-delay="2400">
+      <div class="sender">Camila</div>
+      <p>14h tá perfeito! Mas posso pagar no pix?</p>
+      <div class="time">22:48</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="3600">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Perfeito! ✅ Reservei seu horário:</p>
+      <p><strong>Limpeza de Pele</strong><br>📅 Amanhã (quinta), 14:00<br>⏱️ Duração: ~1h<br>💰 R$180</p>
+      <p>Sim, aceitamos Pix! Você pode pagar na chegada ou antecipado. Te mando a chave amanhã de manhã, tudo bem?</p>
+      <p>Precisa de mais alguma coisa? 😊</p>
+      <div class="time">22:48 <span class="check">✓✓</span></div>
+    </div>
+
+    <div class="msg incoming hidden" data-delay="4400">
+      <div class="sender">Camila</div>
+      <p>Só isso, obrigada! Que atendimento rápido 😍</p>
+      <div class="time">22:49</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="5200">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Obrigada, Camila! Te esperamos amanhã às 14h. Se precisar mudar, é só avisar aqui. Boa noite! 💜</p>
+      <p><em>⚡ Resumo enviado para a equipe: agendamento confirmado Camila 14h limpeza de pele.</em></p>
+      <div class="time">22:49 <span class="check">✓✓</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENARIO 2: Imobiliária -->
+<div id="s2" class="scenario">
+  <div class="scenario-label">Imobiliária qualificando lead — domingo 10:15</div>
+  <button class="play-btn" onclick="playScenario('s2')">▶ Assistir conversa ao vivo</button>
+  <div class="chat-container" id="chat-s2">
+    <div class="date-chip"><span>DOMINGO</span></div>
+
+    <div class="msg incoming hidden" data-delay="600">
+      <div class="sender">Ricardo</div>
+      <p>Oi, vi um apartamento no site de vocês na Vila Madalena, 2 quartos. Ainda tá disponível?</p>
+      <div class="time">10:15</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="2000">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Oi Ricardo! Bom dia 🏠</p>
+      <p>Temos alguns apartamentos de 2 quartos na Vila Madalena. Pra te ajudar melhor, pode me contar:</p>
+      <p>1. Qual a faixa de valor que está buscando?<br>2. Precisa de vaga de garagem?<br>3. Seria pra morar ou investir?</p>
+      <div class="time">10:15 <span class="check">✓✓</span></div>
+    </div>
+
+    <div class="msg incoming hidden" data-delay="3000">
+      <div class="sender">Ricardo</div>
+      <p>Pra morar, até 600 mil, e preciso de 1 vaga sim</p>
+      <div class="time">10:16</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="4200">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Ótimo! Encontrei <strong>3 opções</strong> que encaixam no seu perfil:</p>
+      <p>🏢 <strong>R. Girassol, 120</strong> — 62m², 2 dorms, 1 vaga — R$520.000<br>🏢 <strong>R. Wisard, 88</strong> — 70m², 2 dorms, 1 vaga — R$580.000<br>🏢 <strong>R. Purpurina, 45</strong> — 58m², 2 dorms, 1 vaga — R$495.000</p>
+      <p>Quer agendar uma visita? Posso reservar horário com o corretor pra esta semana.</p>
+      <div class="time">10:16 <span class="check">✓✓</span></div>
+    </div>
+
+    <div class="msg incoming hidden" data-delay="5200">
+      <div class="sender">Ricardo</div>
+      <p>O da Wisard me interessou. Tem horário terça de manhã?</p>
+      <div class="time">10:18</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="6400">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Reservado! ✅</p>
+      <p><strong>Visita agendada:</strong><br>📍 R. Wisard, 88 — Vila Madalena<br>📅 Terça-feira, 10:00<br>👤 Corretor: Marcos (ele vai te mandar msg confirmando)</p>
+      <p>Se quiser ver os outros dois no mesmo dia, consigo encaixar às 11:00 e 11:30. Quer?</p>
+      <p><em>⚡ Lead qualificado enviado para Marcos: Ricardo, 2Q Vila Madalena, até 600K, visita terça 10h.</em></p>
+      <div class="time">10:18 <span class="check">✓✓</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENARIO 3: Restaurante -->
+<div id="s3" class="scenario">
+  <div class="scenario-label">Restaurante recebendo reserva e dúvida — sábado 18:30</div>
+  <button class="play-btn" onclick="playScenario('s3')">▶ Assistir conversa ao vivo</button>
+  <div class="chat-container" id="chat-s3">
+    <div class="date-chip"><span>SÁBADO</span></div>
+
+    <div class="msg incoming hidden" data-delay="600">
+      <div class="sender">Ana</div>
+      <p>Oi! Vocês têm mesa pra 6 pessoas hoje às 20h?</p>
+      <div class="time">18:30</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="1800">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Oi Ana! 🍽️</p>
+      <p>Pra hoje às 20h tá bem concorrido, mas tenho essas opções:</p>
+      <p>• <strong>20:00</strong> — mesa no salão externo (6 lugares) ✅<br>• <strong>20:30</strong> — mesa interna (6 lugares) ✅<br>• <strong>21:00</strong> — salão principal (6 lugares) ✅</p>
+      <p>Qual prefere?</p>
+      <div class="time">18:30 <span class="check">✓✓</span></div>
+    </div>
+
+    <div class="msg incoming hidden" data-delay="2800">
+      <div class="sender">Ana</div>
+      <p>20h no externo! Alguém do grupo é celíaco, vocês têm opções sem glúten?</p>
+      <div class="time">18:31</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="4000">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Reservado! ✅</p>
+      <p><strong>Reserva confirmada:</strong><br>📅 Hoje, sábado — 20:00<br>👥 6 pessoas — Salão externo<br>📝 Nome: Ana</p>
+      <p>Sobre opções sem glúten: sim! 🙌 Temos:</p>
+      <p>• Risoto de cogumelos (naturalmente s/ glúten)<br>• Salmão grelhado c/ legumes<br>• Salada Caesar adaptada<br>• Todas as sobremesas de chocolate são s/ glúten</p>
+      <p>Posso avisar a cozinha sobre a restrição do grupo pra já prepararem. Quer?</p>
+      <div class="time">18:31 <span class="check">✓✓</span></div>
+    </div>
+
+    <div class="msg incoming hidden" data-delay="5000">
+      <div class="sender">Ana</div>
+      <p>Sim por favor!! Que serviço incrível, obrigada!</p>
+      <div class="time">18:32</div>
+    </div>
+
+    <div class="msg outgoing hidden" data-delay="5800">
+      <div class="sender ai">🤖 Agente IA</div>
+      <p>Feito! Cozinha avisada 👨‍🍳✅</p>
+      <p>Te esperamos às 20h, Ana. Se precisar mudar algo, é só mandar aqui. Bom jantar! 🥂</p>
+      <p><em>⚡ Reserva registrada: Ana, 6 pax, externo 20h. Alerta: 1 celíaco no grupo — cozinha notificada.</em></p>
+      <div class="time">18:32 <span class="check">✓✓</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-bar">
+  <p>Isso tudo acontece <strong>sem intervenção humana</strong>. 24h por dia.</p>
+  <a href="https://wa.me/5511988670555?text=Vi%20a%20demo%20e%20quero%20saber%20mais%20sobre%20o%20agente%20IA">💬 Quero isso no meu WhatsApp</a>
+</div>
+
+<div class="footer">
+  <p>WeDevUp — 6+ anos construindo software · Agora com IA</p>
+  <p><a href="https://jcouso.github.io/wedevup-ai/">Ver oferta completa →</a></p>
+</div>
+
+<script>
+function showScenario(id) {
+  document.querySelectorAll('.scenario').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function playScenario(id) {
+  const chat = document.getElementById('chat-' + id);
+  const msgs = chat.querySelectorAll('.msg.hidden');
+  const btn = chat.previousElementSibling;
+  if (msgs.length === 0) return;
+  btn.style.display = 'none';
+  // Show messages with delay
+  let cumDelay = 0;
+  msgs.forEach(msg => {
+    const d = parseInt(msg.dataset.delay) || 800;
+    cumDelay += d;
+    setTimeout(() => {
+      msg.classList.remove('hidden');
+      msg.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, cumDelay);
+  });
+}
+</script>
+
+</body>
+</html>
