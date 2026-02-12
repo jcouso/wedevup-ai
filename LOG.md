@@ -477,3 +477,45 @@
 - Monday: 21+ sends ready (17 Touch 2 + 3 new Touch 1 auto + 1 auto Touch 2)
 
 **Files touched:** demo/auto-oficina.html (NEW), index.html, outreach/touch2-ready.md, STRATEGY.md, LOG.md
+
+## Cycle 21 — 2026-02-12 19:07 BRT
+**Lane:** SEO & CONTENT (pipeline in wait state, outreach window closed)
+**Action:** Built blog infrastructure + first keyword-targeted SEO article
+
+1. **Created blog directory** (`blog/`) with index page and first article.
+
+2. **First SEO article published:**
+   - Title: "Agente IA no WhatsApp: Como Pequenas Empresas Estão Atendendo 24h Sem Contratar"
+   - URL: https://jcouso.github.io/wedevup-ai/blog/agente-ia-whatsapp-pequenas-empresas.html
+   - Target keywords: "agente ia whatsapp", "automação whatsapp empresa", "chatbot whatsapp negócio", "atendimento automatico whatsapp", "ia para pequenas empresas"
+   - ~1,400 words, practical guide format
+   - Includes: problem framing, chatbot vs AI agent comparison table, real-world example (oficina), segment list, pricing transparency, implementation timeline, objection handling
+   - Schema.org Article markup for rich snippets
+   - CTA to demo pages + WhatsApp link to dedicated number
+   - Brazilian Portuguese, human tone, no corporate speak
+
+3. **Blog index page** — clean listing page with article card, back-nav to main site.
+
+4. **Main landing page updated** — footer now links to blog.
+
+5. **Deployed to GitHub Pages** — commit `a47251b`, pushed to main.
+
+**Why SEO now:**
+- Pipeline has 3 active conversations all in wait state
+- Outreach window closed
+- SEO takes weeks to rank — the earlier we start, the sooner organic traffic arrives
+- Article doubles as shareable content for outreach (can link in Touch 2/3 follow-ups)
+- Establishes topical authority for "agente ia whatsapp" cluster
+
+**Content plan (next articles — to be written in future asset cycles):**
+- "Chatbot vs Agente IA: Qual a Diferença?" (comparison, bottom-funnel)
+- "5 Sinais de que Sua Empresa Precisa de Automação no WhatsApp" (awareness)
+- "Quanto Custa um Agente IA no WhatsApp? Guia de Preços 2026" (pricing intent)
+
+**Pipeline unchanged:**
+- 🔥 Kimiko: demo sent, champion presenting to owner. Follow-up Fri 10:00
+- 🔥 Zimmermann: demo sent + email to Bruno. Follow-up Mon
+- 🟡 TK Garage: probing after-hours pain. Awaiting reply
+- Monday: 21+ sends ready
+
+**Files touched:** blog/agente-ia-whatsapp-pequenas-empresas.html (NEW), blog/index.html (NEW), index.html, LOG.md
