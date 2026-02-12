@@ -442,3 +442,38 @@
 **Token-efficiency note:** Ultra-light scan. Confirmed zero inbound, zero action. Pipeline stable.
 
 **Files touched:** LOG.md
+
+## Cycle 20 — 2026-02-12 18:52 BRT
+**Lane:** ASSETS (pipeline in wait state, outreach window closed)
+**Action:** Built generic Auto Center/Oficina segment landing page + prepped Monday outreach
+
+1. **Built `demo/auto-oficina.html`** — generic segment page for all auto/oficina prospects:
+   - 4 interactive chat scenarios: orçamento, agendamento, fora do horário, follow-up automático
+   - Auto-specific pain points (WhatsApp lotado, clientes perdidos à noite, agendamento bagunçado, follow-up de orçamento)
+   - ROI proof section (+35% conversão, 80% menos perguntas repetitivas, 24/7 atendimento)
+   - CTA linking to dedicated WhatsApp number
+   - SEO meta tags for "agente ia whatsapp oficina" vertical
+   - **LIVE:** https://jcouso.github.io/wedevup-ai/demo/auto-oficina.html
+
+2. **Updated main landing page** — hero section now links both segment demos (Clínica/Estética + Auto Center/Oficina)
+
+3. **Prepped Monday auto segment outreach** in `outreach/touch2-ready.md`:
+   - Touch 2 for B2 (Auto Mecânica do Vale) with segment-specific link
+   - New Touch 1 for B3 (Cartec Mecânica), B4 (RP Auto), B5 (Topázio Car Service)
+   - All using the new auto-oficina.html segment page
+
+4. **Updated STRATEGY.md** with new segment asset
+
+**Why this matters:** Auto center is the strongest-signal vertical (Kimiko HOT, TK Garage WARM). Having a dedicated segment page:
+- Makes Monday Touch 2 more compelling (specific demo vs generic landing)
+- Reusable for all future auto segment outreach
+- Helps close Kimiko if owner wants to see more
+- SEO value for "oficina + whatsapp + ia" queries
+
+**Pipeline unchanged:**
+- 🔥 Kimiko: demo sent, champion presenting to owner. Follow-up Fri 10:00
+- 🔥 Zimmermann: demo sent + email to Bruno. Follow-up Mon
+- 🟡 TK Garage: probing after-hours pain. Awaiting reply
+- Monday: 21+ sends ready (17 Touch 2 + 3 new Touch 1 auto + 1 auto Touch 2)
+
+**Files touched:** demo/auto-oficina.html (NEW), index.html, outreach/touch2-ready.md, STRATEGY.md, LOG.md
