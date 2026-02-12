@@ -1,0 +1,167 @@
+{
+  "clientId": "kimiko-auto-center",
+  "businessName": "Kimiko Auto Center",
+  "businessType": "auto_center",
+  "whatsappNumber": "",
+  "timezone": "America/Sao_Paulo",
+
+  "businessHours": {
+    "monday":    { "open": "08:00", "close": "18:00" },
+    "tuesday":   { "open": "08:00", "close": "18:00" },
+    "wednesday": { "open": "08:00", "close": "18:00" },
+    "thursday":  { "open": "08:00", "close": "18:00" },
+    "friday":    { "open": "08:00", "close": "18:00" },
+    "saturday":  { "open": "08:00", "close": "13:00" },
+    "sunday":    null
+  },
+
+  "offHoursMessage": "Olá! Obrigado por entrar em contato com a Kimiko Auto Center. Nosso atendimento é de segunda a sexta, das 8h às 18h, e sábado das 8h às 13h. Deixe sua mensagem que respondemos assim que possível!",
+
+  "systemPrompt": "Você é a assistente virtual da Kimiko Auto Center, um centro automotivo com mais de 15 anos de experiência no bairro da Saúde, Zona Sul de São Paulo. Seja profissional, simpática e objetiva. Responda em português brasileiro. Seu papel é: tirar dúvidas sobre serviços e horários, agendar visitas/orçamentos, coletar informações do veículo (marca, modelo, ano, problema/serviço desejado) e encaminhar para atendimento humano quando necessário. Nunca invente preços exatos. Se o cliente perguntar valor, explique que fazemos orçamento personalizado após avaliação e ofereça agendar. Destaque que trabalhamos com veículos nacionais e importados. Transparência e preço justo são valores da Kimiko.",
+
+  "services": [
+    {
+      "name": "Diagnóstico Computadorizado",
+      "description": "Leitura eletrônica completa do veículo para identificar falhas",
+      "price": "Consulte",
+      "duration": "30-60 min"
+    },
+    {
+      "name": "Alinhamento de Direção",
+      "description": "Alinhamento computadorizado para garantir dirigibilidade e segurança",
+      "price": "Consulte",
+      "duration": "30-45 min"
+    },
+    {
+      "name": "Balanceamento de Rodas",
+      "description": "Balanceamento para eliminar vibrações e desgaste irregular dos pneus",
+      "price": "Consulte",
+      "duration": "30 min"
+    },
+    {
+      "name": "Suspensão",
+      "description": "Revisão e troca de componentes de suspensão (amortecedores, molas, pivôs)",
+      "price": "Orçamento após avaliação",
+      "duration": "Variável"
+    },
+    {
+      "name": "Freios e Freios ABS",
+      "description": "Troca de pastilhas, discos, fluido e revisão do sistema ABS",
+      "price": "Orçamento após avaliação",
+      "duration": "1-3h"
+    },
+    {
+      "name": "Troca de Óleo",
+      "description": "Troca de óleo lubrificante e filtro. Trabalhamos com óleos sintéticos e semi-sintéticos",
+      "price": "Consulte",
+      "duration": "30 min"
+    },
+    {
+      "name": "Injeção Eletrônica",
+      "description": "Diagnóstico e reparo do sistema de injeção eletrônica",
+      "price": "Orçamento após avaliação",
+      "duration": "Variável"
+    },
+    {
+      "name": "Limpeza de Bicos",
+      "description": "Limpeza ultrassônica dos bicos injetores para melhor performance e economia",
+      "price": "Consulte",
+      "duration": "1-2h"
+    },
+    {
+      "name": "Embreagem",
+      "description": "Troca de kit de embreagem (disco, platô, rolamento)",
+      "price": "Orçamento após avaliação",
+      "duration": "4-6h"
+    },
+    {
+      "name": "Escapamentos",
+      "description": "Reparo e troca de componentes do sistema de escapamento",
+      "price": "Orçamento após avaliação",
+      "duration": "Variável"
+    },
+    {
+      "name": "Baterias",
+      "description": "Teste e troca de bateria. Diversas marcas disponíveis",
+      "price": "Consulte",
+      "duration": "15-30 min"
+    },
+    {
+      "name": "Manutenção de Air Bag",
+      "description": "Diagnóstico e manutenção do sistema de air bag",
+      "price": "Orçamento após avaliação",
+      "duration": "Variável"
+    },
+    {
+      "name": "Estética Automotiva",
+      "description": "Polimento, cristalização, higienização interna e estética completa",
+      "price": "Consulte",
+      "duration": "Variável"
+    }
+  ],
+
+  "faqs": [
+    {
+      "question": "Onde fica a Kimiko?",
+      "answer": "Estamos no bairro da Saúde, Zona Sul de São Paulo. Atendemos clientes de toda a Zona Sul: Jabaquara, Vila Mariana, Sacomã, Ipiranga, Moema, Vila Nova Conceição, e também do ABC e São Bernardo."
+    },
+    {
+      "question": "Vocês trabalham com carros importados?",
+      "answer": "Sim! Trabalhamos com veículos nacionais e importados. Temos experiência com todas as marcas."
+    },
+    {
+      "question": "Como funciona o orçamento?",
+      "answer": "Fazemos uma avaliação presencial do veículo e enviamos o orçamento detalhado, sem compromisso. Nosso diferencial é transparência total nos preços e serviços. Posso agendar sua visita?"
+    },
+    {
+      "question": "Tem estacionamento?",
+      "answer": "Sim, temos estacionamento para clientes."
+    },
+    {
+      "question": "Quanto tempo demora o serviço?",
+      "answer": "Depende do serviço. Serviços simples como troca de óleo levam cerca de 30 minutos. Para serviços mais complexos, informamos o prazo no orçamento."
+    },
+    {
+      "question": "Aceitam cartão?",
+      "answer": "Sim, aceitamos cartão de crédito e débito, além de PIX e transferência. Condições de parcelamento disponíveis para serviços de maior valor."
+    }
+  ],
+
+  "appointmentBooking": {
+    "enabled": true,
+    "collectFields": ["name", "phone", "vehicle_brand_model_year", "service_or_problem", "preferred_date", "preferred_time"],
+    "confirmationMessage": "Perfeito, {name}! Sua visita foi agendada: {vehicle_brand_model_year} para {service_or_problem} em {preferred_date} às {preferred_time}. Nossa equipe vai confirmar em breve! Qualquer dúvida, estamos aqui."
+  },
+
+  "escalation": {
+    "triggers": [
+      "falar com humano",
+      "falar com alguém",
+      "reclamação",
+      "problema com serviço anterior",
+      "quero meu dinheiro de volta",
+      "processo",
+      "procon"
+    ],
+    "message": "Entendi! Vou encaminhar você para nossa equipe agora mesmo. Um momento, por favor.",
+    "notifyNumber": ""
+  },
+
+  "leadCapture": {
+    "enabled": true,
+    "fields": ["name", "phone", "vehicle", "service_interest", "source"],
+    "webhookUrl": ""
+  },
+
+  "ai": {
+    "model": "gpt-4o-mini",
+    "maxTokens": 400,
+    "temperature": 0.6,
+    "maxHistoryMessages": 15
+  },
+
+  "compliance": {
+    "blockedTopics": [],
+    "disclaimer": ""
+  }
+}

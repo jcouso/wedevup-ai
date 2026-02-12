@@ -1,15 +1,18 @@
 # Outreach Tracker
 
-## Pipeline Summary (as of 2026-02-12 15:58 BRT)
+## Pipeline Summary (as of 2026-02-12 17:52 BRT)
 
-- **Touch 1 sent:** 25/25
-- **Human replies:** 4 (Kimiko ✅ DEMO SENT, Zimmermann ✅ DEMO SENT, CrossFit ❌ rejected, Zay ❌ rejected)
-- **Bot auto-replies:** 4 (Apeles, Osteofit, Fisioluque, Sampa Tattoo)
-- **No response yet:** 16
-- **Reply rate (human):** 16% (4/25) — 4h+ elapsed
-- **Active conversations:** 2 (Kimiko — presenting to owner; Zimmermann — routed to Bruno, demo sent)
-- **Rejections:** 2 (CrossFit, Zay Estética)
-- **Touch 2 due:** Monday Feb 16 (for non-responders) — messages pre-built in `outreach/touch2-ready.md`
+- **Touch 1 sent:** 25/25 + 5 batch 2 = 30 outbound
+- **Inbound leads:** 1 (Fogaça — DECLINED, illegal segment)
+- **Human replies:** 5 outbound (Kimiko ✅ DEMO SENT, Zimmermann ✅ DEMO SENT, TK Garage ✅ engaged, CrossFit ❌ rejected, Zay ❌ rejected)
+- **Bot auto-replies:** 6 (Apeles, Osteofit, Fisioluque, Sampa Tattoo, RP Auto, Topázio)
+- **No response yet:** 17 (12 batch 1 + 3 batch 2 + 2 B2-B3)
+- **Reply rate (human, outbound only):** 17% (5/30)
+- **Active conversations:** 3 (Kimiko presenting to owner, TK Garage probing pain, Zimmermann waiting on Bruno — all wait state)
+- **Rejections/Declined:** 3 (CrossFit, Zay, Fogaça illegal)
+- **Touch 2 due:** Monday Feb 16 (for non-responders)
+- **Fri 10:00:** Kimiko follow-up if owner hasn't responded
+- **Agent configs pre-built:** kimiko-auto-center.json, zimmermann-imoveis.json
 
 ## Active Conversations
 
@@ -23,8 +26,26 @@
 - **Our reply 2:** 2026-02-12 15:58 — sent personalized demo link for Zimmermann
 - **Email to Bruno:** drafted + sent via macOS mail (deliverability uncertain)
 - **Demo URL:** https://jcouso.github.io/wedevup-ai/demo/zimmermann-imoveis.html
+- **Vanessa reply 2:** 2026-02-12 16:07 — "Agradeço Sr. Juan." (polite ack, positive tone)
 - **Status:** DEMO_SENT — awaiting Bruno's response (decision-maker). Vanessa is champion/gatekeeper.
+- **Agent config pre-built:** `delivery/configs/zimmermann-imoveis.json` (ready to deploy on close)
 - **Next:** Wait for Bruno's response. If silent >48h, light WhatsApp follow-up to Vanessa asking if Bruno saw the demo.
+
+### ~~Fogaça (INBOUND) — DECLINED~~ (moved to Closed)
+- **JID:** 237872737193985@lid
+- **Segment:** Illegal (casa de prostituição)
+- **Source:** Inbound
+- **Status:** DECLINED — politely declined, illegal segment. Moved to Closed table.
+
+### TK Garage (B1) — 🟡 WARM
+- **JID:** 56156764504174@lid / 5511953949770@s.whatsapp.net
+- **Segment:** Auto/Oficina
+- **Touch 1:** 2026-02-12 17:10 — hook about 50 years, WhatsApp orçamentos, losing leads after hours
+- **Their reply 1:** 2026-02-12 17:10 — "Consigo" (can handle it)
+- **Their reply 2:** 2026-02-12 17:11 — "10 -2" (likely CB shorthand "roger" or hours)
+- **Our follow-up 1:** 2026-02-12 17:26 — pivoted to after-hours angle ("noite e fim de semana")
+- **Status:** IN CONVERSATION — they say they handle it; probing after-hours pain now.
+- **Next:** If they confirm after-hours pain → offer example. If not → respect and move on.
 
 ### Kimiko Auto Center (C23) — 🔥 HOT
 - **JID:** 225623406567568@lid (business account)
@@ -39,6 +60,7 @@
 - **Our follow-up 3:** 2026-02-12 15:22 — sent personalized demo page: https://jcouso.github.io/wedevup-ai/demo/kimiko-auto-center.html + reassured them
 - **Demo URL:** https://jcouso.github.io/wedevup-ai/demo/kimiko-auto-center.html
 - **Status:** DEMO_SENT — lead presenting to decision-maker (owner). Strong buying signal.
+- **Agent config pre-built:** `delivery/configs/kimiko-auto-center.json` (ready to deploy on close)
 - **Next:** Wait for owner feedback. If positive → schedule quick call or close directly. If silent >24h, light follow-up Fri.
 
 ## Closed / Rejected
@@ -89,6 +111,35 @@
 - Touch 2 copy: personalized based on bot/no-reply status
 - For 4 bot-reply prospects: "upgrade from basic bot" angle
 - For 14 no-reply: "quick follow-up" with demo link
+
+## Batch 2 — Auto Centers (sent 2026-02-12 ~17:10 BRT)
+
+| # | Business | Segment | JID | Sent | Human Reply | Bot Reply | Status |
+|---|---|---|---|---|---|---|---|
+| B1 | TK Garage | Auto/Oficina | 5511953949770 | 17:10 | ✅ "Consigo" + "10 -2" | - | **IN CONVERSATION** |
+| B2 | Auto Mecânica do Vale | Auto/Oficina | 5511996092267 | 17:10 | - | - | awaiting |
+| B3 | Cartec Mecânica | Auto/Oficina | 5511947734897 | 17:11 | - | - | awaiting |
+| B4 | RP Auto | Auto/Oficina | 5511934990116 | 17:39 | - | ✅ welcome bot ("agradece seu contato") | awaiting |
+| B5 | Topázio Car Service | Auto/Oficina | 5511996062304 | 17:40 | - | ✅ welcome bot ("Cristiano agradece seu contato") | awaiting |
+
+**Message style:** Hook-first, personalized, question-only. No links, no pitch, no pricing.
+**Touch 2 due:** Monday Feb 16 (if no reply by then)
+**Remaining batch 2 prospects (B6-B8 imobiliárias):** scheduled for Monday Feb 16 alongside Touch 2
+
+## Inbound Leads
+
+| # | Name | JID | Source | First Contact | Segment | Status |
+|---|---|---|---|---|---|---|
+| IN1 | Fogaça | 237872737193985@lid | Inbound (demo link) | 2026-02-12 17:15 | Illegal (casa de prostituição) | **DECLINED** — politely declined, illegal segment |
+
+## Pipeline Summary Update (as of 2026-02-12 17:25 BRT)
+- **Total touched:** 28 outbound + 1 inbound = 29
+- **Hot leads:** 2 (Kimiko, Zimmermann)
+- **Warm leads:** 1 (TK Garage)
+- **Awaiting reply:** 17 (14 batch 1 + 2 batch 2)
+- **Bot auto-replies:** 4
+- **Rejections:** 2
+- **Active conversations:** 4
 
 ## Duplicate Send Note
 - C1-C5 received a second slightly different message ~1hr after first (operator error)

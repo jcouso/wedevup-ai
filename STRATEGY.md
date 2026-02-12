@@ -39,6 +39,7 @@ Every Brazilian SMB uses WhatsApp. Most handle it manually. AI agents = immediat
 - Offer doc: `offers/whatsapp-ai-agent.md`
 - Landing page: **LIVE** → https://jcouso.github.io/wedevup-ai/
 - **Interactive demo page: LIVE** → https://jcouso.github.io/wedevup-ai/demo/clinica-estetica.html (3 scenarios: clínica, imobiliária, restaurante)
+- **Auto Center/Oficina segment page: LIVE** → https://jcouso.github.io/wedevup-ai/demo/auto-oficina.html (4 scenarios: orçamento, agendamento, noturno, follow-up)
 - Outreach templates: `outreach/templates.md` (with landing URL)
 - **Ready-to-send messages (7 prospects): `outreach/ready-to-send.md`** ← JUST COPY & SEND
 - Prospect targets (warm — Juan fills): `outreach/prospect-targets.md`

@@ -247,3 +247,47 @@ Angle: "upgrade from basic bot to AI agent"
 4. **11:00-12:00** — Monitor replies, respond to any engagement immediately
 5. **14:00-15:00** — Follow up on any morning replies
 6. Total: 21 sends (within 30/day cap, spread across 1.5h)
+
+---
+
+## Auto Center/Oficina Prospects — Monday Feb 16
+
+### B2 — Auto Mecânica do Vale (Auto/Oficina)
+**JID:** 5511996092267@s.whatsapp.net
+**Segment link:** jcouso.github.io/wedevup-ai/demo/auto-oficina.html
+> Oi! Mandei uma mensagem na quinta sobre automação do WhatsApp pra oficinas.
+>
+> Montei uma página mostrando como funciona na prática pra auto centers: orçamento, agendamento e atendimento fora do horário, tudo automático.
+>
+> Dá uma olhada: jcouso.github.io/wedevup-ai/demo/auto-oficina.html
+>
+> Sem compromisso! 👊
+
+### NEW Touch 1 — B3 — Cartec Mecânica (Auto/Oficina)
+**JID:** 5511947734897@s.whatsapp.net
+**Segment link:** jcouso.github.io/wedevup-ai/demo/auto-oficina.html
+> Oi, tudo bem? Vi que a Cartec atende Butantã e região, boa localização.
+>
+> Vocês recebem muita mensagem no WhatsApp pedindo orçamento? Temos um agente IA que responde na hora, 24h, sem precisar de alguém na linha.
+>
+> Tem um exemplo prático aqui: jcouso.github.io/wedevup-ai/demo/auto-oficina.html
+
+### NEW Touch 1 — B4 — RP Auto (Auto/Oficina)
+**JID:** 5511934990116@s.whatsapp.net
+**Note:** May have already received Touch 1 — check send-log before sending. If bot-reply already received, use "upgrade" angle.
+**Segment link:** jcouso.github.io/wedevup-ai/demo/auto-oficina.html
+> Oi! Vi que a RP Auto tem site novo. Vocês recebem bastante mensagem no WhatsApp pedindo orçamento?
+>
+> Temos um agente IA que responde clientes na hora, até de madrugada. Agenda e faz follow-up automático.
+>
+> Dá uma olhada como funciona: jcouso.github.io/wedevup-ai/demo/auto-oficina.html
+
+### NEW Touch 1 — B5 — Topázio Car Service (Auto/Oficina)
+**JID:** 5511996062304@s.whatsapp.net
+**Note:** May have already received Touch 1 — check send-log before sending. If bot-reply already received, use "upgrade" angle.
+**Segment link:** jcouso.github.io/wedevup-ai/demo/auto-oficina.html
+> Oi, tudo bem? Vi que a Topázio atende Osasco e Vila São Francisco.
+>
+> Vocês recebem muita mensagem no WhatsApp pedindo preço de serviço? Temos um agente IA que responde na hora, 24h, sem precisar de ninguém.
+>
+> Tem um exemplo aqui: jcouso.github.io/wedevup-ai/demo/auto-oficina.html
